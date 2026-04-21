@@ -1,37 +1,39 @@
-import { apiClient } from "../api/client";
-import { generateRecipe } from "./CoffeeService";
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-jest.mock("../api/client", () => ({
+import { apiClient } from '../api/client';
+import { generateRecipe } from './CoffeeService';
+
+vi.mock('../api/client', () => ({
   apiClient: {
-    post: jest.fn(),
+    post: vi.fn(),
   },
 }));
 
-const mockPost = apiClient.post as jest.MockedFunction<typeof apiClient.post>;
+const mockPost = vi.mocked(apiClient.post);
 
-describe("generateRecipe", () => {
+describe('generateRecipe', () => {
   beforeEach(() => {
     mockPost.mockReset();
   });
 
-  it("normalizes a multiline string recipe into steps", async () => {
+  it('normalizes a multiline string recipe into steps', async () => {
     mockPost.mockResolvedValue({
-      data: { recipe: "Bloom 40g water\nStir gently\nDraw down by 2:30" },
+      data: { recipe: 'Bloom 40g water\nStir gently\nDraw down by 2:30' },
     });
-    await expect(generateRecipe("V60")).resolves.toEqual({
-      steps: ["Bloom 40g water", "Stir gently", "Draw down by 2:30"],
+    await expect(generateRecipe('V60')).resolves.toEqual({
+      steps: ['Bloom 40g water', 'Stir gently', 'Draw down by 2:30'],
     });
   });
 
-  it("accepts structured steps from the API", async () => {
+  it('accepts structured steps from the API', async () => {
     mockPost.mockResolvedValue({
       data: {
-        recipe: { title: "Espresso", steps: ["Dose 18g", "Pull 28s"] },
+        recipe: { title: 'Espresso', steps: ['Dose 18g', 'Pull 28s'] },
       },
     });
-    await expect(generateRecipe("Espresso")).resolves.toEqual({
-      title: "Espresso",
-      steps: ["Dose 18g", "Pull 28s"],
+    await expect(generateRecipe('Espresso')).resolves.toEqual({
+      title: 'Espresso',
+      steps: ['Dose 18g', 'Pull 28s'],
     });
   });
 });

@@ -25,7 +25,7 @@
     "jsx": "react-jsx",
     "types": [
       "node",
-      "jest",
+      "vitest/globals",
       "react",
       "react-dom"
     ]
