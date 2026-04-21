@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "build": "echo 'no build step'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/community": "^1.1.27",
+    "@langchain/core": "^1.1.39",
+    "@langchain/groq": "^1.2.0",
+    "@langchain/openai": "^1.2.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "langchain": "^1.2.0",
+    "mongoose": "^9.4.1",
+    "openai": "^6.34.0",
+    "redis": "^4.7.1",
+    "zod": "^3.25.76"
+  },
+  "overrides": {
+    "@browserbasehq/stagehand": {
+      "openai": "$openai",
+      "zod": "$zod"
+    }
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
